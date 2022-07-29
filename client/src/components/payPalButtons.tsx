@@ -4,20 +4,35 @@ import {
   PayPalButtons,
   usePayPalScriptReducer,
 } from "@paypal/react-paypal-js";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { selectTotalCartPrice } from "../redux/cartPricesSlice";
+import { useAppSelector } from "../redux/hooks";
 import SuccessfulPayment from "./successfulPayment";
+import { selectNumberOfAddedIds } from "../redux/cartIdsSlice";
+import { selectTotalCartPrice } from "../redux/cartPricesSlice";
+import { ProductProps } from "../types/ProductProps";
 
 // These values are the props in the UI
 const currency = "SEK";
-const style = { layout: "vertical" };
+
+interface ButtonWrapperProps {
+  currency: string;
+  showSpinner: boolean;
+  product: ProductProps;
+}
 
 // Custom component to wrap the PayPalButtons and handle currency changes
-const ButtonWrapper = ({ currency, showSpinner }) => {
-  const amount = useAppSelector(selectTotalCartPrice);
+const ButtonWrapper = ({
+  currency,
+  showSpinner,
+  product,
+}: ButtonWrapperProps) => {
+  const numberOfAddedIds = useAppSelector((state) =>
+    selectNumberOfAddedIds(state, product.id)
+  );
+
+  const amount = numberOfAddedIds * 1000;
+  // Davids current hourly rate is 1000 SEK, and numberOfAddedIds for the given product corresponds to the number of hours the user has selected in the UI that they want to purchase
+
   const [successfulPayment, setSuccessfulPayment] = useState(false);
-  const [payerEmail, setPayerEmail] = useState("");
-  const [orderId, setOrderId] = useState();
 
   // usePayPalScriptReducer can be use only inside children of PayPalScriptProviders
   // This is the main reason to wrap the PayPalButtons in a new component
@@ -36,13 +51,13 @@ const ButtonWrapper = ({ currency, showSpinner }) => {
   return (
     <>
       {showSpinner && isPending && <div className="spinner" />}
-      {successfulPayment ? (
-        <SuccessfulPayment payerEmail={payerEmail} orderId={orderId} />
-      ) : null}
+      {successfulPayment ? <SuccessfulPayment /> : null}
+      {amount ? amount : null}
+
       <PayPalButtons
-        style={style}
+        style={{ layout: "vertical" }}
         disabled={false}
-        forceReRender={[amount, currency, style]}
+        forceReRender={[amount, currency, { layout: "vertical" }]}
         fundingSource={undefined}
         createOrder={(data, actions) => {
           return actions.order
@@ -51,20 +66,18 @@ const ButtonWrapper = ({ currency, showSpinner }) => {
                 {
                   amount: {
                     currency_code: currency,
-                    value: amount,
+                    value: amount.toString(),
                   },
                 },
               ],
             })
             .then((orderId) => {
-              setOrderId(orderId);
               return orderId;
             });
         }}
-        onApprove={function (data, actions) {
-          return actions.order.capture().then(function (details) {
+        onApprove={function (data, actions: any) {
+          return actions.order.capture().then(function (details: any) {
             setSuccessfulPayment(true);
-            setPayerEmail(details.payer.email_address);
           });
         }}
       />
@@ -72,7 +85,11 @@ const ButtonWrapper = ({ currency, showSpinner }) => {
   );
 };
 
-export default function PayPalButtonsContainer(cartPrice) {
+export default function PayPalButtonsContainer(props: {
+  product: ProductProps;
+}) {
+  const product = props.product;
+
   return (
     <div
       style={{ maxWidth: "485px", minHeight: "200px", margin: "3rem  auto" }}
@@ -88,7 +105,7 @@ export default function PayPalButtonsContainer(cartPrice) {
         <ButtonWrapper
           currency={currency}
           showSpinner={false}
-          amount={cartPrice}
+          product={product}
         />
       </PayPalScriptProvider>
     </div>

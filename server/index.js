@@ -15,12 +15,22 @@ const productsData = [
     description: "Very basic static website",
     id: 0,
     price: 12200,
+    payment_options: [],
   },
   {
     title: "Multiple-page static website",
     description: "Basic static website",
     id: 1,
-    price: 1100,
+    price: 111000,
+    payment_options: [],
+  },
+  {
+    title: "1 hour of Davids time",
+    description:
+      "David will spend one hour of his time developing whatever you want him to create.",
+    id: 2,
+    price: 1000,
+    payment_options: ["paypal_client"],
   },
 ];
 

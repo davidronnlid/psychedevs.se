@@ -1,62 +1,26 @@
-import React, { useEffect } from "react";
-import { removeAllIdsFromCart, selectCartIds } from "../redux/cartIdsSlice";
+import { useEffect, useState } from "react";
+import { removeAllIdsFromCart } from "../redux/cartIdsSlice";
+import { removeAllTitlesFromCart } from "../redux/cartTitlesSlice";
 import {
   removeAllPricesFromCart,
   selectTotalCartPrice,
 } from "../redux/cartPricesSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
-interface SuccessfulPaymentProps {
-  payerEmail: string;
-  orderId: number;
-}
-
-const SuccessfulPayment = ({
-  payerEmail,
-  orderId,
-}: SuccessfulPaymentProps): JSX.Element => {
+const SuccessfulPayment = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
-  const totalCartPrice = useAppSelector(selectTotalCartPrice);
-
-  console.log(totalCartPrice);
-
-  const requestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      payerEmail: payerEmail,
-      orderId: orderId,
-      totalCartPrice: totalCartPrice,
-    }),
-  };
-
-  useEffect(() => {
-    fetch("/payers-api", requestOptions)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(
-            `This is an HTTP error: The status is ${response.status}`
-          );
-        }
-        return response.json();
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }, []);
-
-  const emptyCart = () =>
+  const clearCart = () =>
     dispatch({ type: removeAllIdsFromCart }) &&
-    dispatch({ type: removeAllPricesFromCart });
+    dispatch({ type: removeAllPricesFromCart }) &&
+    dispatch({ type: removeAllTitlesFromCart });
 
   useEffect(() => {
-    emptyCart();
-  }, [emptyCart]);
+    clearCart();
+  }, [clearCart]);
   return (
     <>
       <h1>Successful Payment!</h1>
-      {payerEmail}
     </>
   );
 };

@@ -3,4 +3,5 @@ export interface ProductProps {
   title: string;
   description: string;
   price: number;
+  payment_options: Array<string>;
 }

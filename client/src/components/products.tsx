@@ -48,7 +48,6 @@ const Products: React.FC = () => {
           ))}
       </div>
       Total cart price: {totalCartPrice ? totalCartPrice : 0}kr
-      <PayPalButtonsContainer cartPrice={totalCartPrice} />
     </div>
   );
 };
