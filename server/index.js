@@ -1,10 +1,10 @@
 const path = require("path");
 const express = require("express");
-
 const app = express();
-const port = process.env.PORT || 5000;
 
-app.use(express.static(path.join(__dirname, "/client/build")));
+const PORT = process.env.PORT || 3001;
+
+app.use(express.static(path.resolve(__dirname, "../client/build")));
 
 const productsData = [
   {
@@ -21,11 +21,14 @@ const productsData = [
   },
 ];
 
-app.listen(port, function (err) {
-  if (err) console.log("Error in server setup");
-  console.log("Server listening on Port", port);
+app.get("/api", (req, res) => {
+  res.json({ products: productsData });
 });
 
-app.get("/products-api", (req, res) => {
-  res.send({ products: productsData });
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
+});
+
+app.listen(PORT, () => {
+  console.log(`Server listening on ${PORT}`);
 });
