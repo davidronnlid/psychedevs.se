@@ -14,6 +14,8 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { ProductProps } from "../types/ProductProps";
 import PayPalButtonsContainer from "./payPalButtons";
 
+import styles from "../css-modules/product.module.css";
+
 const Product = (props: { product: ProductProps }) => {
   const product = props.product;
   const numberOfAddedIds = useAppSelector((state) =>
@@ -43,30 +45,32 @@ const Product = (props: { product: ProductProps }) => {
   };
 
   return (
-    <div className="loaded-product">
-      <h1>{product.title}</h1>
-      <h3>{product.description}</h3>
-      <p>{product.price} kr</p>
+    <div>
+      <h1 className={styles.title}>{product.title}</h1>
+      <h3 className={styles.title}>{product.description}</h3>
+      <p className={styles.title}>{product.price} kr</p>
       <button
         onClick={(event) =>
           handleAddClick(event, product.id, product.price, product.title)
         }
+        className={styles.title}
       >
         Add to cart
       </button>
-      {numberOfAddedIds}
+      <p className={styles.title}>{numberOfAddedIds}</p>
       <button
         onClick={(event) =>
           handleRemoveClick(event, product.id, product.price, product.title)
         }
+        className={styles.title}
       >
         Remove from cart
       </button>
-      <div>
+      <div className={`${styles.title} ${styles.italicize}`}>
         {product.payment_options.includes("paypal_client") ? (
           <PayPalButtonsContainer product={product} />
         ) : (
-          "currently there are no payment options for this product"
+          "Currently there are no payment options for this product. Coming soon. For now, email david.ronnlid@gmail.com if you are interested in this package."
         )}
       </div>
     </div>

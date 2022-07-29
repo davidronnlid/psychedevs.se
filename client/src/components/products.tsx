@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { selectTotalCartPrice } from "../redux/cartPricesSlice";
-import { useAppSelector } from "../redux/hooks";
 import { ProductProps } from "../types/ProductProps";
 import PayPalButtonsContainer from "./payPalButtons";
 import Product from "./product";
+import ProductTabs from "./productTabs";
 
 const Products: React.FC = () => {
-  const totalCartPrice = useAppSelector(selectTotalCartPrice);
-
-  const [productsData, setProductsData] = useState<any>(null);
+  const [productsData, setProductsData] = useState<any>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -37,17 +34,17 @@ const Products: React.FC = () => {
 
   return (
     <div>
+      {productsData ? <ProductTabs products={productsData.products} /> : null}
       {loading && <div>Loading data...</div>}
       {error && (
         <div>{`There is a problem fetching the post data - ${error}`}</div>
       )}
       <div className="loaded-products">
-        {productsData &&
+        {/* {productsData &&
           productsData.products.map((product: ProductProps) => (
             <Product product={product} key={product.id} />
-          ))}
+          ))} */}
       </div>
-      Total cart price: {totalCartPrice ? totalCartPrice : 0}kr
     </div>
   );
 };
