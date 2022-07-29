@@ -4,6 +4,7 @@ const app = express();
 const bp = require("body-parser");
 app.use(bp.json());
 app.use(bp.urlencoded({ extended: true }));
+require("dotenv").config();
 
 const PORT = process.env.PORT || 3001;
 
