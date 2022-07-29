@@ -21,7 +21,7 @@ const productsData = [
   },
 ];
 
-app.get("/api", (req, res) => {
+app.get("/products-api", (req, res) => {
   res.json({ products: productsData });
 });
 
