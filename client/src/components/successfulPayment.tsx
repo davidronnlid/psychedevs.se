@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import { removeAllIdsFromCart, selectCartIds } from "../redux/cartIdsSlice";
-import { removeAllPricesFromCart } from "../redux/cartPricesSlice";
-import { useAppDispatch } from "../redux/hooks";
+import {
+  removeAllPricesFromCart,
+  selectTotalCartPrice,
+} from "../redux/cartPricesSlice";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
 interface SuccessfulPaymentProps {
   payerEmail: string;
@@ -12,12 +15,19 @@ const SuccessfulPayment = ({
   payerEmail,
   orderId,
 }: SuccessfulPaymentProps): JSX.Element => {
+  const dispatch = useAppDispatch();
+
+  const totalCartPrice = useAppSelector(selectTotalCartPrice);
+
+  console.log(totalCartPrice);
+
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       payerEmail: payerEmail,
       orderId: orderId,
+      totalCartPrice: totalCartPrice,
     }),
   };
 
@@ -35,8 +45,6 @@ const SuccessfulPayment = ({
         console.log(err.message);
       });
   }, []);
-
-  const dispatch = useAppDispatch();
 
   const emptyCart = () =>
     dispatch({ type: removeAllIdsFromCart }) &&
