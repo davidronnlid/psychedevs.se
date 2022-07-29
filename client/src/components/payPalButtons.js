@@ -17,6 +17,7 @@ const ButtonWrapper = ({ currency, showSpinner }) => {
   const amount = useAppSelector(selectTotalCartPrice);
   const [successfulPayment, setSuccessfulPayment] = useState(false);
   const [payerEmail, setPayerEmail] = useState("");
+  const [orderId, setOrderId] = useState();
 
   // usePayPalScriptReducer can be use only inside children of PayPalScriptProviders
   // This is the main reason to wrap the PayPalButtons in a new component
@@ -32,11 +33,12 @@ const ButtonWrapper = ({ currency, showSpinner }) => {
     });
   }, [currency, showSpinner]);
 
-  let conditionalRender;
   return (
     <>
       {showSpinner && isPending && <div className="spinner" />}
-      {successfulPayment ? <SuccessfulPayment payerEmail={payerEmail} /> : null}
+      {successfulPayment ? (
+        <SuccessfulPayment payerEmail={payerEmail} orderId={orderId} />
+      ) : null}
       <PayPalButtons
         style={style}
         disabled={false}
@@ -55,7 +57,7 @@ const ButtonWrapper = ({ currency, showSpinner }) => {
               ],
             })
             .then((orderId) => {
-              // Your code here after create the order
+              setOrderId(orderId);
               return orderId;
             });
         }}
@@ -63,8 +65,6 @@ const ButtonWrapper = ({ currency, showSpinner }) => {
           return actions.order.capture().then(function (details) {
             setSuccessfulPayment(true);
             setPayerEmail(details.payer.email_address);
-
-            // Your code here after capture the order
           });
         }}
       />
