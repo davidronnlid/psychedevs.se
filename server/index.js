@@ -1,6 +1,9 @@
 const path = require("path");
 const express = require("express");
 const app = express();
+const bp = require("body-parser");
+app.use(bp.json());
+app.use(bp.urlencoded({ extended: true }));
 
 const PORT = process.env.PORT || 3001;
 
@@ -21,8 +24,18 @@ const productsData = [
   },
 ];
 
+let payerDetails;
+
 app.get("/products-api", (req, res) => {
   res.json({ products: productsData });
+});
+
+app.post("/payers-api", (req, res) => {
+  payerDetails = req.body;
+});
+
+app.get("/payers-api", (req, res) => {
+  res.send(payerDetails);
 });
 
 app.get("*", (req, res) => {

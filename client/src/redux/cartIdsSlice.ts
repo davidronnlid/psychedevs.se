@@ -28,10 +28,14 @@ export const CartIdsSlice = createSlice({
 
       state.cartIds.splice(idToRemove, 1);
     },
+    removeAllIdsFromCart: (state) => {
+      state.cartIds = [];
+    },
   },
 });
 
-export const { addIdToCart, removeIdFromCart } = CartIdsSlice.actions;
+export const { addIdToCart, removeIdFromCart, removeAllIdsFromCart } =
+  CartIdsSlice.actions;
 
 export const selectCartIds = (state: RootState) => state.cartIds.cartIds;
 

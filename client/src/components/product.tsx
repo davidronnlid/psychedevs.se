@@ -8,7 +8,7 @@ import {
 import {
   addPriceToCart,
   removePriceFromCart,
-  getTotalCartPrice,
+  selectTotalCartPrice,
 } from "../redux/cartPricesSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { ProductProps } from "../types/ProductProps";
@@ -35,7 +35,7 @@ const Product = (props: { product: ProductProps }) => {
   };
 
   return (
-    <div key={product.id} className="loaded-product">
+    <div className="loaded-product">
       <h1>{product.title}</h1>
       <h3>{product.description}</h3>
       <p>{product.price} kr</p>

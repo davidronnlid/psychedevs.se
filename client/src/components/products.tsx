@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { getTotalCartPrice } from "../redux/cartPricesSlice";
+import { selectTotalCartPrice } from "../redux/cartPricesSlice";
 import { useAppSelector } from "../redux/hooks";
 import { ProductProps } from "../types/ProductProps";
 import PayPalButtonsContainer from "./payPalButtons";
 import Product from "./product";
 
 const Products: React.FC = () => {
-  const totalCartPrice = useAppSelector(getTotalCartPrice);
+  const totalCartPrice = useAppSelector(selectTotalCartPrice);
 
   const [productsData, setProductsData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -44,7 +44,7 @@ const Products: React.FC = () => {
       <div className="loaded-products">
         {productsData &&
           productsData.products.map((product: ProductProps) => (
-            <Product product={product} />
+            <Product product={product} key={product.id} />
           ))}
       </div>
       Total cart price: {totalCartPrice ? totalCartPrice : 0}kr

@@ -30,12 +30,16 @@ export const CartPricesSlice = createSlice({
 
       state.cartPrices.splice(priceToRemove, 1);
     },
+    removeAllPricesFromCart: (state) => {
+      state.cartPrices = [];
+    },
   },
 });
 
-export const { addPriceToCart, removePriceFromCart } = CartPricesSlice.actions;
+export const { addPriceToCart, removePriceFromCart, removeAllPricesFromCart } =
+  CartPricesSlice.actions;
 
-export const getTotalCartPrice = (state: RootState) => {
+export const selectTotalCartPrice = (state: RootState) => {
   return state.cartPrices.cartPrices.reduce(
     (partialSum, price) => partialSum + price,
     0

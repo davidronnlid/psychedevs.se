@@ -1,11 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   PayPalScriptProvider,
   PayPalButtons,
   usePayPalScriptReducer,
 } from "@paypal/react-paypal-js";
-import { useAppSelector } from "../redux/hooks";
-import { getTotalCartPrice } from "../redux/cartPricesSlice";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { selectTotalCartPrice } from "../redux/cartPricesSlice";
+import SuccessfulPayment from "./successfulPayment";
 
 // These values are the props in the UI
 const currency = "SEK";
@@ -13,7 +14,9 @@ const style = { layout: "vertical" };
 
 // Custom component to wrap the PayPalButtons and handle currency changes
 const ButtonWrapper = ({ currency, showSpinner }) => {
-  const amount = useAppSelector(getTotalCartPrice);
+  const amount = useAppSelector(selectTotalCartPrice);
+  const [successfulPayment, setSuccessfulPayment] = useState(false);
+  const [payerEmail, setPayerEmail] = useState("");
 
   // usePayPalScriptReducer can be use only inside children of PayPalScriptProviders
   // This is the main reason to wrap the PayPalButtons in a new component
@@ -29,9 +32,11 @@ const ButtonWrapper = ({ currency, showSpinner }) => {
     });
   }, [currency, showSpinner]);
 
+  let conditionalRender;
   return (
     <>
       {showSpinner && isPending && <div className="spinner" />}
+      {successfulPayment ? <SuccessfulPayment payerEmail={payerEmail} /> : null}
       <PayPalButtons
         style={style}
         disabled={false}
@@ -55,7 +60,10 @@ const ButtonWrapper = ({ currency, showSpinner }) => {
             });
         }}
         onApprove={function (data, actions) {
-          return actions.order.capture().then(function () {
+          return actions.order.capture().then(function (details) {
+            setSuccessfulPayment(true);
+            setPayerEmail(details.payer.email_address);
+
             // Your code here after capture the order
           });
         }}
