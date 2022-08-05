@@ -10,6 +10,28 @@ const PORT = process.env.PORT || 3001;
 
 app.use(express.static(path.resolve(__dirname, "../client/build")));
 
+app.post("http://localhost:3001//create-checkout-session", async (req, res) => {
+  const session = await stripe.checkout.sessions.create({
+    line_items: [
+      {
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: "T-shirt",
+          },
+          unit_amount: 2000,
+        },
+        quantity: 1,
+      },
+    ],
+    mode: "payment",
+    success_url: "https://davidronnlidportfolio.netlify.app",
+    cancel_url: "https://davidronnlidmovies.netlify.app",
+  });
+
+  res.redirect(303, session.url);
+});
+
 const productsData = [
   {
     title: "1 hour of Davids time",

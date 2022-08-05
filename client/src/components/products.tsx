@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { ProductProps } from "../types/ProductProps";
-import PayPalButtonsContainer from "./payPalButtons";
-import Product from "./product";
 import ProductTabs from "./productTabs";
 
 const Products: React.FC = () => {
@@ -39,12 +36,6 @@ const Products: React.FC = () => {
       {error && (
         <div>{`There is a problem fetching the post data - ${error}`}</div>
       )}
-      <div className="loaded-products">
-        {/* {productsData &&
-          productsData.products.map((product: ProductProps) => (
-            <Product product={product} key={product.id} />
-          ))} */}
-      </div>
     </div>
   );
 };

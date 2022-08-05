@@ -4,12 +4,8 @@ import {
   removeIdFromCart,
   selectNumberOfAddedIds,
 } from "../redux/cartIdsSlice";
-import {
-  addPriceToCart,
-  removePriceFromCart,
-  selectTotalCartPrice,
-} from "../redux/cartPricesSlice";
-import { addTitleToCart, removeTitleFromCart } from "../redux/cartTitlesSlice";
+import { addPriceToCart, removePriceFromCart } from "../redux/cartPricesSlice";
+import { addTitleToCart } from "../redux/cartTitlesSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { ProductProps } from "../types/ProductProps";
 import PayPalButtonsContainer from "./payPalButtons";
