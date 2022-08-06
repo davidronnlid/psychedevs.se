@@ -5,6 +5,7 @@ import Slide from "@mui/material/Slide";
 import { useAppSelector } from "../redux/hooks";
 import { selectTotalCartPrice } from "../redux/cartPricesSlice";
 import { TiShoppingCart } from "react-icons/ti";
+import StripeCheckout from "./stripeCheckout";
 
 interface Props {
   window?: () => Window;
@@ -35,6 +36,7 @@ export default function HideAppBar(props: Props) {
           <h3>
             <TiShoppingCart />: {totalCartPrice}kr
           </h3>
+          <StripeCheckout />
         </AppBar>
       </HideOnScroll>
     </>

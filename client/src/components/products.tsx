@@ -34,7 +34,7 @@ const Products: React.FC = () => {
       {productsData ? <ProductTabs products={productsData.products} /> : null}
       {loading && <div>Loading data...</div>}
       {error && (
-        <div>{`There is a problem fetching the post data - ${error}`}</div>
+        <div>{`There is a problem fetching the product data - ${error}`}</div>
       )}
     </div>
   );

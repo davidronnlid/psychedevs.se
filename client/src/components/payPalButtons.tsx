@@ -7,7 +7,6 @@ import {
 import { useAppSelector } from "../redux/hooks";
 import SuccessfulPayment from "./successfulPayment";
 import { selectNumberOfAddedIds } from "../redux/cartIdsSlice";
-import { selectTotalCartPrice } from "../redux/cartPricesSlice";
 import { ProductProps } from "../types/ProductProps";
 
 // These values are the props in the UI

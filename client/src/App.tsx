@@ -10,6 +10,7 @@ const App = () => {
     <Provider store={store}>
       <div className="App">
         <HideAppBar children={<></>} />
+
         <Products />
       </div>
     </Provider>
@@ -17,5 +18,3 @@ const App = () => {
 };
 
 export default App;
-
-// https://blog.logrocket.com/modern-api-data-fetching-methods-react/

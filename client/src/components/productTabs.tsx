@@ -54,15 +54,6 @@ export default function ProductTabs(props: { products: Array<ProductProps> }) {
 
   return (
     <Box className={styles.containerBox}>
-      {/* <h3>Products and Services offered by David</h3>
-      <form action="/create-checkout-session" method="POST">
-        <button
-          type="submit"
-          onClick={(event) => handleStripeButtonClick(event, session)}
-        >
-          Stripe Checkout
-        </button>
-      </form> */}
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}
