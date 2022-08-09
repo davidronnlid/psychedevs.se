@@ -1,6 +1,6 @@
 .containerBox {
   width: 80vw;
   min-height: 85vh;
-  margin: 20vh auto;
-  border: 3px solid red;
+  margin: 0 auto 20vh auto;
+  border: 3px solid var(--primary-color);
 }

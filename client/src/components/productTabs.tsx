@@ -61,26 +61,62 @@ export default function ProductTabs(props: { products: Array<ProductProps> }) {
           aria-label="product tabs"
           variant="scrollable"
           scrollButtons="auto"
+          textColor="inherit"
         >
+          <Tab label="PsycheDevs Podcast" {...a11yProps(0)} />
           {products.map((product) => (
             <Tab label={product.title} {...a11yProps(product.id)} />
-          ))}
-          <Tab label="More" {...a11yProps(products.length)} />
+          ))}{" "}
         </Tabs>
       </Box>
-
+      <TabPanel value={value} index={0}>
+        <h2>Utveckla ditt psyke...</h2>
+        <p>... med psykologstudenterna David och Johan</p>
+        <iframe
+          width="100%"
+          height="300"
+          scrolling="no"
+          allow="autoplay"
+          src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1481156176&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
+        ></iframe>
+        <div
+          style={{
+            fontSize: "10px",
+            color: "var(--secondary-color)",
+            lineBreak: "anywhere",
+            wordBreak: "normal",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+            fontFamily:
+              "Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif",
+            fontWeight: 100,
+          }}
+        >
+          <a
+            href="https://soundcloud.com/psychedevs"
+            title="PsycheDevs"
+            target="_blank"
+            style={{ color: "var(--secondary-color)", textDecoration: "none" }}
+          >
+            PsycheDevs
+          </a>{" "}
+          ·{" "}
+          <a
+            href="https://soundcloud.com/psychedevs/sets/psychedevs-baesta"
+            title="PsycheDevs bästa"
+            target="_blank"
+            style={{ color: "var(--secondary-color)", textDecoration: "none" }}
+          >
+            PsycheDevs Bästa
+          </a>
+        </div>
+      </TabPanel>
       {products.map((product) => (
-        <TabPanel value={value} index={product.id}>
+        <TabPanel value={value} index={product.id + 1}>
           <Product product={product} />
         </TabPanel>
       ))}
-
-      <TabPanel value={value} index={products.length}>
-        <h2>David is open to remote part-time freelance work</h2>
-        <a href="https://linkedin.com/in/davidronnlid/">
-          Contact David via LinkedIn
-        </a>
-      </TabPanel>
     </Box>
   );
 }

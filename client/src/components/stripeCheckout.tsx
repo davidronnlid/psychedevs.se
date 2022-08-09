@@ -1,8 +1,14 @@
+import Button from "@mui/material/Button";
 import { selectCartIds } from "../redux/cartIdsSlice";
 import { selectTotalCartPrice } from "../redux/cartPricesSlice";
 import { useAppSelector } from "../redux/hooks";
 
-const StripeCheckout = () => {
+interface StripeCheckoutProps {
+  btnText: string;
+}
+
+const StripeCheckout = (props: StripeCheckoutProps) => {
+  const { btnText } = props;
   const totalCartPrice = useAppSelector(selectTotalCartPrice);
   const cartIds = useAppSelector(selectCartIds);
 
@@ -29,9 +35,15 @@ const StripeCheckout = () => {
 
   return (
     <form action="/create-checkout-session" method="POST">
-      <button type="submit" onClick={() => handleClick()}>
-        Checkout
-      </button>
+      <Button
+        variant="contained"
+        color="success"
+        sx={{ mt: 1 }}
+        type="submit"
+        onClick={() => handleClick()}
+      >
+        {btnText}
+      </Button>
     </form>
   );
 };
