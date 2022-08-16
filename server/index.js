@@ -138,8 +138,8 @@ app.post("/create-checkout-session", async (req, res) => {
       },
     ],
     mode: "payment",
-    success_url: "http://localhost:3001/success",
-    cancel_url: "http://localhost:3001/canceled",
+    success_url: process.env.SUCCESS_URL,
+    cancel_url: process.env.CANCEL_URL,
     automatic_tax: { enabled: true },
   });
 

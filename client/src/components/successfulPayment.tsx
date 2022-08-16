@@ -20,7 +20,8 @@ const SuccessfulPayment = (): JSX.Element => {
   }, [clearCart]);
   return (
     <>
-      <h1>Successful Payment!</h1>
+      <h1>Tack för ditt köp!</h1>
+      <p>Du har fått ett mejl med mer information om e-boken.</p>
     </>
   );
 };

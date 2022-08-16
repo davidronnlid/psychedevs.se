@@ -72,7 +72,7 @@ export default function ProductTabs(props: { products: Array<ProductProps> }) {
       <TabPanel value={value} index={0}>
         <h2>Utveckla ditt psyke...</h2>
         <p>... med psykologstudenterna David och Johan</p>
-        <iframe
+        {/* <iframe
           width="100%"
           height="300"
           scrolling="no"
@@ -110,7 +110,16 @@ export default function ProductTabs(props: { products: Array<ProductProps> }) {
           >
             PsycheDevs Bästa
           </a>
-        </div>
+        </div> */}
+
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/60a7Ghv8qZQ"
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className={styles.YTPlayer}
+        />
       </TabPanel>
       {products.map((product) => (
         <TabPanel value={value} index={product.id + 1}>

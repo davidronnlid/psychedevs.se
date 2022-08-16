@@ -8,6 +8,7 @@ import { TiShoppingCart } from "react-icons/ti";
 import StripeCheckout from "./stripeCheckout";
 import styles from "../css-modules/header.module.css";
 import { Grid } from "@mui/material";
+import { Link } from "react-router-dom";
 
 interface Props {
   window?: () => Window;
@@ -36,7 +37,9 @@ export default function HideAppBar(props: Props) {
         <AppBar className={styles.header}>
           <Grid container>
             <Grid item xs={8}>
-              <h1>PsycheDevs</h1>
+              <Link to="/">
+                <h1>PsycheDevs</h1>
+              </Link>
             </Grid>
             <Grid item xs={3}>
               <TiShoppingCart />: {totalCartPrice}kr
