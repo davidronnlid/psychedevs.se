@@ -9,6 +9,7 @@ import StripeCheckout from "./stripeCheckout";
 import styles from "../css-modules/header.module.css";
 import { Grid } from "@mui/material";
 import { Link } from "react-router-dom";
+import PsycheDevsLogoNoBg from "../images/PSYCHEDEVS_SE_NO_BG.png";
 
 interface Props {
   window?: () => Window;
@@ -33,19 +34,27 @@ export default function HideAppBar(props: Props) {
 
   return (
     <>
-      <HideOnScroll {...props}>
-        <AppBar className={styles.header}>
-          <Grid container>
-            <Grid item xs={8}>
-              <Link to="/">
-                <h1>PsycheDevs</h1>
+      <HideOnScroll>
+        <AppBar
+          className={styles.header}
+          {...props}
+          sx={{ background: "var(--tertiary-color)" }}
+        >
+          <div className={styles.flexContainer}>
+            <div className={styles.flexItem}>
+              <Link to="/" style={{ background: "var(--tertiary-color)" }}>
+                <img
+                  src={PsycheDevsLogoNoBg}
+                  alt="PsycheDevs logo"
+                  className={styles.logo}
+                />
               </Link>
-            </Grid>
-            <Grid item xs={3}>
+            </div>
+            <div className={styles.flexItem}>
               <TiShoppingCart />: {totalCartPrice}kr
               <StripeCheckout btnText="Gå till kassan" />
-            </Grid>
-          </Grid>
+            </div>
+          </div>
         </AppBar>
       </HideOnScroll>
     </>

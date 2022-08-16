@@ -70,8 +70,10 @@ export default function ProductTabs(props: { products: Array<ProductProps> }) {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <h2>Utveckla ditt psyke...</h2>
-        <p>... med psykologstudenterna David och Johan</p>
+        <h2>
+          Utveckla ditt psyke med vännerna Johan (psykologstudent) och David
+          (läkarstudent)
+        </h2>
         {/* <iframe
           width="100%"
           height="300"

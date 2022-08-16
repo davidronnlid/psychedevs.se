@@ -7,22 +7,23 @@ import HideAppBar from "./components/header";
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import SuccessfulPayment from "./components/successfulPayment";
+import Box from "@mui/material/Box";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Provider store={store}>
-        <div className="App">
+        <Box>
           <HideAppBar children={<></>} />
 
-          <Typography variant="h3" sx={{ mt: "20vh", mb: 0 }}>
+          <Typography variant="h3" sx={{ mt: "15vw", mb: "3vw", ml: "10vw" }}>
             Utveckla dig själv med PsycheDevs
           </Typography>
           <Routes>
             <Route path="/" element={<Products />} />
             <Route path="/payment-successful" element={<SuccessfulPayment />} />
           </Routes>
-        </div>
+        </Box>
       </Provider>{" "}
     </BrowserRouter>
   );

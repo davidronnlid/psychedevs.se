@@ -11,9 +11,10 @@
 }
 
 .App {
-  text-align: center;
   background: var(--primary-color);
   color: var(--secondary-color);
+  margin-left: 10vw;
+  margin-right: 10vw;
 }
 
 body,
