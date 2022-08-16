@@ -15,7 +15,7 @@ const StripeCheckout = (props: StripeCheckoutProps) => {
   const data = { totalCartPrice: totalCartPrice, cartIds: cartIds };
 
   const handleClick = () => {
-    fetch("/new-api", {
+    fetch("/pd-stripe-api", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

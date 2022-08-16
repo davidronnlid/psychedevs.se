@@ -5,7 +5,8 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 const nodemailer = require("nodemailer");
-const stripe = require("stripe")(process.env.SECURE_STRIPE_TEST_API_KEY);
+
+const stripe = require("stripe")(process.env.SECURE_STRIPE_API_KEY);
 
 const PORT = process.env.PORT || 3001;
 const bp = require("body-parser");
@@ -106,7 +107,7 @@ const line_items_generator = (PRICE_IDs) => {
   );
 };
 
-app.post("/new-api", (req, res) => {
+app.post("/pd-stripe-api", (req, res) => {
   data = req.body;
 
   console.log(data);
@@ -121,7 +122,7 @@ app.post("/new-api", (req, res) => {
   // PRICE_IDs is now a list of stripe price ids for the products the user added to the cart and is now attempting to go to checkout with
 });
 
-app.get("/new-api", (req, res) => {
+app.get("/pd-stripe-api", (req, res) => {
   res.send(PRICE_IDs, line_items, line_items_generator(PRICE_IDs));
 });
 
